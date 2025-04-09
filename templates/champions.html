@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NBA Legends - Champions</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      background-color: #006bb6;
+    }
+    .navbar-brand, .nav-link {
+      color: #fff !important;
+      font-weight: bold;
+    }
+    .list-group-item {
+      background-color: rgb(255, 255, 255);
+      border: none;
+      margin-bottom: 10px;
+    }
+    .list-group-item i {
+      color: #fdb927;
+    }
+    footer {
+      background-color: #006bb6;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+    }
+   </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">NBA Legends</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+         <ul class="navbar-nav ms-auto">
+           <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+           <li class="nav-item"><a class="nav-link" href="players.html">Players</a></li>
+           <li class="nav-item"><a class="nav-link" href="champions.html">Champions</a></li>
+           <li class="nav-item"><a class="nav-link" href="fanzone.html">Fan Zone</a></li>
+           <li class="nav-item"><a class="nav-link" href="rules.html">NBA Rules</a></li>
+           <li class="nav-item"><a class="nav-link" href="highlights.html">Video Highlights</a></li>
+           <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+         </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+    <h2 class="text-center mb-4 fw-bold">Previous NBA Champions</h2>
+    <div class="mb-3">
+      <input type="text" id="championSearch" class="form-control" placeholder="Search champions...">
+    </div>
+    <ul class="list-group" id="championList">
+    </ul>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 NBA Legends.</p>
+  </footer>
+
+  <script>
+    const champions = [
+      { year: 2024, team: "Boston Celtics" },
+      { year: 2023, team: "Denver Nuggets" },
+      { year: 2022, team: "Golden State Warriors" },
+      { year: 2021, team: "Milwaukee Bucks" },
+      { year: 2020, team: "Los Angeles Lakers" },
+      { year: 2019, team: "Toronto Raptors" },
+      { year: 2018, team: "Golden State Warriors" },
+      { year: 2017, team: "Golden State Warriors" },
+      { year: 2016, team: "Cleveland Cavaliers" },
+      { year: 2015, team: "Golden State Warriors" },
+      { year: 2014, team: "San Antonio Spurs" },
+      { year: 2013, team: "Miami Heat" },
+      { year: 2012, team: "Miami Heat" },
+      { year: 2011, team: "Dallas Mavericks" },
+      { year: 2010, team: "Los Angeles Lakers" },
+      { year: 2009, team: "Los Angeles Lakers" },
+      { year: 2008, team: "Boston Celtics" },
+      { year: 2007, team: "San Antonio Spurs" },
+      { year: 2006, team: "Miami Heat" },
+      { year: 2005, team: "San Antonio Spurs" },
+      { year: 2004, team: "Detroit Pistons" },
+      { year: 2003, team: "San Antonio Spurs" },
+      { year: 2002, team: "Los Angeles Lakers" },
+      { year: 2001, team: "Los Angeles Lakers" },
+      { year: 2000, team: "Los Angeles Lakers" },
+      { year: 1999, team: "San Antonio Spurs" },
+      { year: 1998, team: "Chicago Bulls" },
+      { year: 1997, team: "Chicago Bulls" },
+      { year: 1996, team: "Chicago Bulls" },
+      { year: 1995, team: "Houston Rockets" },
+      { year: 1994, team: "Houston Rockets" },
+      { year: 1993, team: "Chicago Bulls" },
+      { year: 1992, team: "Chicago Bulls" },
+      { year: 1991, team: "Chicago Bulls" },
+      { year: 1990, team: "Detroit Pistons" },
+      { year: 1989, team: "Detroit Pistons" },
+      { year: 1988, team: "Los Angeles Lakers" },
+      { year: 1987, team: "Los Angeles Lakers" },
+      { year: 1986, team: "Boston Celtics" },
+      { year: 1985, team: "Los Angeles Lakers" },
+      { year: 1984, team: "Boston Celtics" },
+      { year: 1983, team: "Philadelphia 76ers" },
+      { year: 1982, team: "Los Angeles Lakers" },
+      { year: 1981, team: "Boston Celtics" },
+      { year: 1980, team: "Los Angeles Lakers" },
+      { year: 1979, team: "Seattle SuperSonics" },
+      { year: 1978, team: "Washington Bullets" },
+      { year: 1977, team: "Portland Trail Blazers" },
+      { year: 1976, team: "Boston Celtics" },
+      { year: 1975, team: "Golden State Warriors" },
+      { year: 1974, team: "Boston Celtics" },
+      { year: 1973, team: "New York Knicks" },
+      { year: 1972, team: "Los Angeles Lakers" },
+      { year: 1971, team: "Milwaukee Bucks" },
+      { year: 1970, team: "New York Knicks" },
+      { year: 1969, team: "Boston Celtics" },
+      { year: 1968, team: "Boston Celtics" },
+      { year: 1967, team: "Philadelphia 76ers" },
+      { year: 1966, team: "Boston Celtics" },
+      { year: 1965, team: "Boston Celtics" },
+      { year: 1964, team: "Boston Celtics" },
+      { year: 1963, team: "Boston Celtics" },
+      { year: 1962, team: "Boston Celtics" },
+      { year: 1961, team: "Boston Celtics" },
+      { year: 1960, team: "Boston Celtics" },
+      { year: 1959, team: "Boston Celtics" },
+      { year: 1958, team: "St. Louis Hawks" },
+      { year: 1957, team: "Boston Celtics" },
+      { year: 1956, team: "Philadelphia Warriors" },
+      { year: 1955, team: "Syracuse Nationals" },
+      { year: 1954, team: "Minneapolis Lakers" },
+      { year: 1953, team: "Minneapolis Lakers" },
+      { year: 1952, team: "Minneapolis Lakers" },
+      { year: 1951, team: "Rochester Royals" },
+      { year: 1950, team: "Minneapolis Lakers" },
+      { year: 1949, team: "Minneapolis Lakers" },
+      { year: 1948, team: "Baltimore Bullets" },
+      { year: 1947, team: "Philadelphia Warriors" }
+    ];
+
+    function displayChampions(list) {
+      const container = document.getElementById("championList");
+      container.innerHTML = "";
+      list.forEach(champion => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex align-items-center";
+        li.innerHTML = `<i class="fas fa-trophy me-3"></i><strong>${champion.year}</strong> - ${champion.team}`;
+        container.appendChild(li);
+      });
+    }
+
+    displayChampions(champions);
+
+    document.getElementById("championSearch").addEventListener("input", function() {
+      const term = this.value.toLowerCase();
+      const filtered = champions.filter(c =>
+        c.year.toString().includes(term) || c.team.toLowerCase().includes(term)
+      );
+      displayChampions(filtered);
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NBA Legends - Video Highlights</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    .navbar { background-color: #006bb6; }
+    .navbar-brand, .nav-link {
+      color: #fff !important;
+      font-weight: bold;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 25px;
+      height: 0;
+      margin-bottom: 20px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    footer {
+      background-color: #006bb6;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">NBA Legends</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+         <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+         <ul class="navbar-nav ms-auto">
+           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+           <li class="nav-item"><a class="nav-link" href="players.html">Players</a></li>
+           <li class="nav-item"><a class="nav-link" href="champions.html">Champions</a></li>
+           <li class="nav-item"><a class="nav-link" href="fanzone.html">Fan Zone</a></li>
+           <li class="nav-item"><a class="nav-link" href="rules.html">NBA Rules</a></li>
+           <li class="nav-item"><a class="nav-link active" href="highlights.html">Video Replays</a></li>
+           <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+         </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+    <h2 class="text-center fw-bold mb-4">NBA Videos Replays</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/watch?v=T9G6IOgjoQg&pp=ygUUbmJhIGhpZ2hsaWdodHMgdG9kYXk%3D" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="mt-2 text-center">NBA Replay 1</p>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/watch?v=lH4bJTb49po" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="mt-2 text-center">NBA Replay 2</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 NBA Legends.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
