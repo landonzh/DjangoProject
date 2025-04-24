@@ -45,3 +45,25 @@ def edit_user(request, user_id):
 
 def home(request):
     return render(request, 'home.html')
+
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+@login_required
+def contact_us (request):
+    if request.method == 'POST':
+        name = request.user.get_full_name()
+        email = request.user.email
+        # Save the request to Firebase or your DB here if needed...
+        # Compose the confirmation email
+        subject = f"EdTech Request Submitted:"
+        message = (
+            f"Hello {name},\n\n"
+            f"Your message for has been successfully submitted. \n\n"
+            f"Summary: \n"
+            f"Thank you, \n"
+            f"EdTech @ ISM"
+        )
+        send_mail(subject, message, None, [email], fail_silently =False)
+        return redirect('thank_you' ) # Or wherever you want to redirect
+    return render(request, 'contact_us.html' )
