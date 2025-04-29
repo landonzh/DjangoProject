@@ -149,5 +149,5 @@ import os
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'your_app_name/static'), folder
+    os.path.join(BASE_DIR, 'NBApenis/static')
 ]
