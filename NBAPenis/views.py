@@ -44,7 +44,24 @@ def edit_user(request, user_id):
     return render(request, 'edit_user.html', {'user': user, 'user_id': user_id})
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
+
+def players(request):
+    return render(request, 'players.html')
+def champions(request):
+    return render(request, 'champions.html')
+
+def fanzone(request):
+    return render(request, 'fanzone.html')
+
+def rules(request):
+    return render(request, 'rules.html')
+
+def highlights(request):
+    return render(request, 'highlights.html')
+
+def login(request):
+    return render(request, 'login.html')
 
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect

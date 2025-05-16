@@ -1,14 +1,27 @@
+import os
+import json
 import firebase_admin
 from firebase_admin import credentials, db
-import os
 
-# Path to the serviceAccountKey.json file
-cred_path = os.environ.get("FIREBASE_CREDENTIALS_PATH")
-current_directory = os.path.dirname(os.path.abspath(__file__))
+def get_firebase_credentials():
+    # Try loading from file path (local dev)
+    cred_path = os.environ.get("FIREBASE_CREDENTIALS_PATH")
+    if cred_path and os.path.exists(cred_path):
+        return credentials.Certificate(cred_path)
 
-# Initialize the Firebase Admin SDK
-cred = credentials.Certificate(cred_path)
-# Reference to the Realtime Database
+    # Else, try from string (Vercel env var)
+    firebase_creds_str = os.environ.get("FIREBASE_CREDENTIALS_JSON")
+    if firebase_creds_str:
+        firebase_creds_dict = json.loads(firebase_creds_str)
+        return credentials.Certificate(firebase_creds_dict)
+
+    raise ValueError("Firebase credentials not found.")
+    # Initialize only if not already initialized
+if not firebase_admin._apps:
+    cred = get_firebase_credentials()
+    firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://edtech-e32be-default-rtdb.asia-southeast1.firebasedatabase.app/'
+    })
 database_ref = db.reference()
 # Function to add a user to Firebase
 def add_user_to_firebase(name, email):
@@ -22,30 +35,5 @@ def get_users_from_firebase():
     users_ref = database_ref.child('users')
     users = users_ref.get() # Fetch all users from the database
     return users
-
-import os
-import json
-import firebase_admin
-from firebase_admin import credentials, db
-
-def get_firebase_credentials():
-    # Try loading from file path (local dev)
-    cred_path = os.environ.get("FIREBASE_CREDENTIALS_PATH")
-    if cred_path and os.path.exists(cred_path):
-        return credentials.Certificate(cred_path)
-    # Else, try from string (Vercel env var)
-    firebase_creds_str = os.environ.get("FIREBASE_CREDENTIALS_JSON")
-    if firebase_creds_str:
-        firebase_creds_dict = json.loads(firebase_creds_str)
-        return credentials.Certificate(firebase_creds_dict)
-
-raise ValueError("Firebase credentials not found.")
-
-# Initialize only if not already initialized
-if not firebase_admin._apps:
-    cred = get_firebase_credentials()
-    firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://edtech-e32be-default-rtdb.asia-southeast1.firebasedatabase.app/'
-    })
 
 database_ref = db.reference()
