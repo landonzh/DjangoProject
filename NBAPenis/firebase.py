@@ -20,7 +20,7 @@ def get_firebase_credentials():
 if not firebase_admin._apps:
     cred = get_firebase_credentials()
     firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://edtech-e32be-default-rtdb.asia-southeast1.firebasedatabase.app/'
+    'databaseURL': 'https://nbadatabase1-default-rtdb.asia-southeast1.firebasedatabase.app/'
     })
 database_ref = db.reference()
 # Function to add a user to Firebase
