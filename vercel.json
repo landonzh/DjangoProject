@@ -1,13 +1,13 @@
 {
   "builds": [{
-    "src": "EdTechSubscription/wsgi.py",
+    "src": "DjangoProject/wsgi.py",
     "use": "@vercel/python",
     "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
   }],
     "routes": [
         {
           "src": "/(.*)",
-          "dest": "EdTechSubscription/wsgi.py"
+          "dest": "DjangoProject/wsgi.py"
         }
     ]
 }
