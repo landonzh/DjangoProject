@@ -1,81 +1,111 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NBA Legends - Fan Zone</title>
+  <title>NBA Legends – Fan Zone</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
-      background-color: #1a1a1a;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
-    .navbar {
-      background-color: #006bb6;
-    }
-    .navbar-brand, .nav-link {
-      color: #fff !important;
-      font-weight: bold;
-    }
-    .card {
-      background-color: #333;
-      border: none;
-    }
-    .card-title, .card-text {
-      color: #fff;
-    }
-    .card-img-top {
-      height: 200px;
-      object-fit: cover;
-    }
-    footer {
-      background-color: #006bb6;
-      padding: 20px;
-      text-align: center;
-      color: #fff;
-      margin-top: 40px;
-    }
-</style>
+    body { background: #1a1a1a; color: #fff; font-family: Arial, sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
+    .navbar { background: #006bb6; }
+    .navbar-brand, .nav-link { color: #fff !important; font-weight: bold; }
+    .container { flex: 1; padding-top: 1rem; padding-bottom: 1rem; }
+    .card { background: #333; border: none; margin-bottom: 1rem; }
+    .btn-primary { background: #fdb927; border: none; color: #1a1a1a; }
+    .btn-primary:hover { background: #e5a00c; color: #fff; }
+    .comment-box { background: #222; padding: .75rem; margin-bottom: .5rem; border-radius: .25rem; }
+    footer { background: #006bb6; padding: 1rem; text-align: center; margin-top: auto; }
+  </style>
 </head>
-<body style="display: flex; flex-direction: column; min-height: 100vh;">
-  <nav class="navbar navbar-expand-lg">
+<body>
+  <nav class="navbar navbar-expand-lg mb-4">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">NBA Legends</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      <a class="navbar-brand" href="{% url 'home' %}">NBA Legends</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon" style="filter:invert(1)"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-         <ul class="navbar-nav ms-auto">
-           <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'players' %}">Players</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'champions' %}">Champions</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'fanzone' %}">Fan Zone</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'rules' %}">NBA Rules</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'highlights' %}">Video Highlights</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-         </ul>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="{% url 'fanzone' %}">Fan Zone</a></li>
+ 
+        </ul>
       </div>
     </div>
   </nav>
 
+  <div class="container">
+    <h2 class="text-center mb-4">Fan Zone</h2>
 
 
-  <div class="container my-4">
-    <h2 class="text-center fw-bold mb-4">Fan Zone</h2>
-    <p class="text-center">Share your thoughts and opinions about your favorite NBA moments and players.</p>
-    <form id="commentForm" class="mb-4">
-      <div class="mb-3">
-        <label for="fanName" class="form-label">Name:</label>
-        <input type="text" id="fanName" class="form-control" placeholder="Your name" required>
+    <div class="card">
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="row g-2 align-items-end">
+            <div class="col-md-5">
+              <label class="form-label text-light">Name</label>
+              <input name="user_name" class="form-control" required>
+            </div>
+            <div class="col-md-5">
+              <label class="form-label text-light">Email</label>
+              <input name="user_email" type="email" class="form-control" required>
+            </div>
+            <div class="col-md-2">
+              <button name="add_user" class="btn btn-primary w-100">Add User</button>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="mb-3">
-        <label for="fanComment" class="form-label">Comment:</label>
-        <textarea id="fanComment" class="form-control" rows="3" placeholder="Your comment" required></textarea>
+    </div>
+
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="text-light mb-3">Users</h5>
+        <ul class="list-unstyled mb-0">
+          {% if users %}
+            {% for u in users %}
+              <li>{{ u.name }} – {{ u.email }}</li>
+            {% endfor %}
+          {% else %}
+            <li>No users found.</li>
+          {% endif %}
+        </ul>
       </div>
-      <button type="submit" class="btn btn-custom">Submit</button>
-    </form>
-    <h4 class="mb-3">Recent Comments</h4>
-    <div id="commentsList">
+    </div>
+
+ 
+    <div class="card">
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label text-light">Your Name</label>
+            <input name="comment_name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-light">Comment</label>
+            <textarea name="comment_text" rows="3" class="form-control" required></textarea>
+          </div>
+          <button name="add_comment" class="btn btn-primary">Submit Comment</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="text-light mb-3">Recent Comments</h5>
+        {% if comments %}
+          {% for c in comments %}
+            <div class="comment-box">
+              <strong>{{ c.name }}:</strong> {{ c.comment }}
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No comments yet.</p>
+        {% endif %}
+      </div>
     </div>
   </div>
 
@@ -84,20 +114,5 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const commentForm = document.getElementById("commentForm");
-    const commentsList = document.getElementById("commentsList");
-
-    commentForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("fanName").value;
-      const comment = document.getElementById("fanComment").value;
-      const commentDiv = document.createElement("div");
-      commentDiv.className = "comment-box";
-      commentDiv.innerHTML = `<p><strong>${name}:</strong> ${comment}</p>`;
-      commentsList.prepend(commentDiv);
-      commentForm.reset();
-    });
-  </script>
 </body>
 </html>

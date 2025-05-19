@@ -99,7 +99,7 @@
 
 <div class="container main-content">
     <h2 class="mb-4">Mail Sending Demo - Explore Comp Sci</h2>
-    <form method="post" action="{% url 'contact_us' %}">
+    <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-submit" id="submitBtn">
             <span id="btnText">Submit Request</span>
