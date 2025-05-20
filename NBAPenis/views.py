@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .firebase import database_ref
+from .models import FanUser, Comment
 # Function to add user to Firebase Realtime Database
 def add_user_to_firebase (name, email):
     user_ref = database_ref.child( 'users').push({
@@ -84,3 +85,29 @@ def contact_us (request):
         send_mail(subject, message, None, [email], fail_silently =False)
         return redirect('thank_you' ) # Or wherever you want to redirect
     return render(request, 'contact_us.html' )
+
+def fanzone(request):
+    if request.method == "POST":
+
+        if "add_user" in request.POST:
+            name  = request.POST.get("user_name", "").strip()
+            email = request.POST.get("user_email", "").strip()
+            if name and email:
+                FanUser.objects.create(name=name, email=email)
+
+
+        elif "add_comment" in request.POST:
+            name    = request.POST.get("comment_name", "").strip()
+            comment = request.POST.get("comment_text", "").strip()
+            if name and comment:
+                Comment.objects.create(name=name, comment=comment)
+
+
+        return redirect("fanzone")
+
+    users    = FanUser.objects.order_by("-created_at")
+    comments = Comment.objects.order_by("-created_at")
+    return render(request, "fanzone.html", {
+        "users":    users,
+        "comments": comments,
+    })

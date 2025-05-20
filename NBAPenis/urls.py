@@ -13,3 +13,32 @@ urlpatterns = [
     path('login/', views.login, name='login'),
 
 ]
+
+from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
+from .views import fanzone, home, players, champions, rules, highlights
+
+urlpatterns = [
+    path("",      home,      name="home"),
+    path("players/",    players,   name="players"),
+    path("champions/",  champions, name="champions"),
+    path("fanzone/",    fanzone,   name="fanzone"),
+    path("rules/",      rules,     name="rules"),
+    path("highlights/", highlights, name="highlights"),
+
+    path(
+      "login/",
+      LoginView.as_view(
+        template_name="login.html",
+        redirect_authenticated_user=True
+      ),
+      name="login"
+    ),
+
+    # Logout: send user to Home
+    path(
+      "logout/",
+      LogoutView.as_view(next_page="home"),
+      name="logout"
+    ),
+]
