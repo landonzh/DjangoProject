@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from . import views
 urlpatterns = [
     path('add-user/', views.add_user, name='add_user'),
@@ -16,29 +17,16 @@ urlpatterns = [
 
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import fanzone, home, players, champions, rules, highlights
+from . import views
 
 urlpatterns = [
-    path("",      home,      name="home"),
-    path("players/",    players,   name="players"),
-    path("champions/",  champions, name="champions"),
-    path("fanzone/",    fanzone,   name="fanzone"),
-    path("rules/",      rules,     name="rules"),
-    path("highlights/", highlights, name="highlights"),
+    path("",            views.home,       name="home"),
+    path("players/",    views.players,    name="players"),
+    path("champions/",  views.champions,  name="champions"),
+    path("fanzone/",    views.fanzone,    name="fanzone"),
+    path("rules/",      views.rules,      name="rules"),
+    path("highlights/", views.highlights, name="highlights"),
 
-    path(
-      "login/",
-      LoginView.as_view(
-        template_name="login.html",
-        redirect_authenticated_user=True
-      ),
-      name="login"
-    ),
-
-    # Logout: send user to Home
-    path(
-      "logout/",
-      LogoutView.as_view(next_page="home"),
-      name="logout"
-    ),
+ path("login/",  auth_views.LoginView.as_view(template_name="login.html"), name="login"),
+    path("logout/", auth_views.LogoutView.as_view(),name="logout"),
 ]

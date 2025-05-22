@@ -38,33 +38,44 @@
   </style>
 </head>
 <body style="display: flex; flex-direction: column; min-height: 100vh;">
+
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">NBA Legends</a>
+      <a class="navbar-brand" href="{% url 'home' %}">NBA Legends</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-         <ul class="navbar-nav ms-auto">
-           <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'players' %}">Players</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'champions' %}">Champions</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'fanzone' %}">Fan Zone</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'rules' %}">NBA Rules</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'highlights' %}">Video Highlights</a></li>
-           <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-         </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'players' %}">Players</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'champions' %}">Champions</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'fanzone' %}">Fan Zone</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'rules' %}">NBA Rules</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'highlights' %}">Video Highlights</a></li>
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+          {% endif %}
+        </ul>
       </div>
     </div>
   </nav>
 
+  <!-- MAIN CONTENT -->
   <div class="content" style="flex: 1;">
     <section class="hero">
       <div class="container">
         <h1>Welcome to NBA Legends</h1>
         <p>Explore the history, players, champions, rules, and highlights of the NBA.</p>
-        <a href="players.html" class="btn btn-custom btn-lg me-2">View Players</a>
-        <a href="champions.html" class="btn btn-outline-light btn-lg">View Champions</a>
+        <a href="{% url 'players' %}" class="btn btn-custom btn-lg me-2">View Players</a>
+        <a href="{% url 'champions' %}" class="btn btn-outline-light btn-lg">View Champions</a>
       </div>
     </section>
 
